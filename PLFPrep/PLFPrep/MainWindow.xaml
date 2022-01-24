@@ -6,6 +6,7 @@
         xmlns:local="clr-namespace:PLFPrep"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
+    <!-- Menubar fia CSV loadn und writen und Playlist erstöhn -->
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -17,52 +18,36 @@
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
-        <!-- Combobox fia Playlists + Listbox mid de Songs, textbox mid button drunter zum Playlist Erstöhn-->
-        <!-- Föda zum Onschaun/Beoabeitn von dem Song: Artist, Composer, Milliseconds, Name, Unitprice, Bytes -->
-        <!-- TreeView fia Artists/Albums/Tracks mid button zum Hinzufügen zu ana playlist -->
 
-        <ComboBox Grid.Row="0" Grid.Column="0"/>
-        <ListBox Grid.Row="1" Grid.Column="0"/>
-        <DockPanel Grid.Row="2" Grid.Column="0" LastChildFill="False">
-            <TextBox Text="Neiche Playlist bruda" DockPanel.Dock="Top"/>
-            <Button DockPanel.Dock="Top" Content="Create Playlist"/>
+        <TextBox Text="Search for Album" Grid.Row="0" Grid.Column="0"/>
+        <ListBox Grid.Row="1" Grid.Column="0">
+            <ListBoxItem Content="Album 1"/>
+        </ListBox>
+
+        <TextBox Grid.Row="0" Grid.Column="1" Text="Search for Song in Album"/>
+        <ListBox Grid.Row="1" Grid.Column="1">
+            <ListBoxItem Content="Album 1/Song 1"/>
+        </ListBox>
+
+        <Button Content="Add selected Song to selected Playlist" Grid.Row="2" Grid.Column="1"/>
+
+        <TextBox Grid.Row="0" Grid.Column="2" Text="Search for Playlist"/>
+        <TreeView Grid.Row="1" Grid.Column="2">
+            <TreeViewItem Header="Playlist 1" IsExpanded="True">
+                <TreeViewItem Header="Song 1.1"/>
+                <TreeViewItem Header="Song 1.2"/>
+                <TreeViewItem Header="Song 1.3"/>
+            </TreeViewItem>
+            
+            <TreeViewItem Header="Playlist 2" IsExpanded="False">
+                <TreeViewItem Header="Song 2.1"/>
+                <TreeViewItem Header="Song 2.2"/>
+                <TreeViewItem Header="Song 2.3"/>
+            </TreeViewItem>
+        </TreeView>
+        <DockPanel Grid.Row="2" Grid.Column="2">
+            <Button Content="Remove Song from Playlist" DockPanel.Dock="Top"/>
+            <Button Content="Remove Playlist"/>
         </DockPanel>
-
-        <Grid Grid.Row="0" Grid.Column="1" VerticalAlignment="Center" Grid.RowSpan="3">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-            </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="*"/>
-            </Grid.ColumnDefinitions>
-
-            
-            <Label Content="Name:" Grid.Row="0" Grid.Column="0"/>
-            <TextBox Text="Lewahittn a la carte" VerticalAlignment="Center" IsReadOnly="False"  Grid.Row="0" Grid.Column="1"/>
-            
-            <Label Content="Artist:" Grid.Row="1" Grid.Column="0"/>
-            <TextBox Text="Oatist" VerticalAlignment="Center" IsReadOnly="False" Grid.Row="1" Grid.Column="1"/>
-
-            <Label Content="Composer:" Grid.Row="2" Grid.Column="0"/>
-            <TextBox Text="Composer (=artist?)" VerticalAlignment="Center" IsReadOnly="False"  Grid.Row="2" Grid.Column="1"/>
-
-            <Label Content="Duration (ms):" Grid.Row="3" Grid.Column="0"/>
-            <TextBox Text="420" VerticalAlignment="Center" IsReadOnly="True"  Grid.Row="3" Grid.Column="1"/>
-
-            <Label Content="Price:" Grid.Row="4" Grid.Column="0"/>
-            <TextBox Text="37.10" VerticalAlignment="Center" IsReadOnly="True"  Grid.Row="4" Grid.Column="1"/>
-
-            <Label Content="Bytes:" Grid.Row="5" Grid.Column="0"/>
-            <TextBox Text="69187" VerticalAlignment="Center" IsReadOnly="True"  Grid.Row="5" Grid.Column="1"/>
-        </Grid>
-
-        <TreeView Grid.Row="0" Grid.Column="2" Grid.RowSpan="2"/> <!-- schreibt donn a den ausgwöhtn Song in de Felder in da Mittn-->
-        <Button Grid.Row="2" Grid.Column="2" Content="Add to selected Playlist"/>
     </Grid>
 </Window>

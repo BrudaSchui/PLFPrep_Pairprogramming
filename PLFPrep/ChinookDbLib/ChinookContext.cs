@@ -5,13 +5,13 @@ using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace ChinookDbLib
 {
-    public partial class NorthwindContext : DbContext
+    public partial class ChinookContext : DbContext
     {
-        public NorthwindContext()
+        public ChinookContext()
         {
         }
 
-        public NorthwindContext(DbContextOptions<NorthwindContext> options)
+        public ChinookContext(DbContextOptions<ChinookContext> options)
             : base(options)
         {
         }
