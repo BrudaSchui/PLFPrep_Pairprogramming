@@ -1,6 +1,7 @@
 ---
 disable-header-and-footer: true
 table-use-row-colors: true
+geometry: margin=2cm
 ---
 
 ## Anforderungen
