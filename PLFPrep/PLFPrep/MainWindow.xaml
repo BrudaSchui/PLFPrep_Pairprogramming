@@ -1,0 +1,53 @@
+﻿<Window x:Class="PLFPrep.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:PLFPrep"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    <!-- Menubar fia CSV loadn und writen und Playlist erstöhn -->
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <TextBox Text="Search for Album" Grid.Row="0" Grid.Column="0"/>
+        <ListBox Grid.Row="1" Grid.Column="0">
+            <ListBoxItem Content="Album 1"/>
+        </ListBox>
+
+        <TextBox Grid.Row="0" Grid.Column="1" Text="Search for Song in Album"/>
+        <ListBox Grid.Row="1" Grid.Column="1">
+            <ListBoxItem Content="Album 1/Song 1"/>
+        </ListBox>
+
+        <Button Content="Add selected Song to selected Playlist" Grid.Row="2" Grid.Column="1"/>
+
+        <TextBox Grid.Row="0" Grid.Column="2" Text="Search for Playlist"/>
+        <TreeView Grid.Row="1" Grid.Column="2">
+            <TreeViewItem Header="Playlist 1" IsExpanded="True">
+                <TreeViewItem Header="Song 1.1"/>
+                <TreeViewItem Header="Song 1.2"/>
+                <TreeViewItem Header="Song 1.3"/>
+            </TreeViewItem>
+            
+            <TreeViewItem Header="Playlist 2" IsExpanded="False">
+                <TreeViewItem Header="Song 2.1"/>
+                <TreeViewItem Header="Song 2.2"/>
+                <TreeViewItem Header="Song 2.3"/>
+            </TreeViewItem>
+        </TreeView>
+        <DockPanel Grid.Row="2" Grid.Column="2">
+            <Button Content="Remove Song from Playlist" DockPanel.Dock="Top"/>
+            <Button Content="Remove Playlist"/>
+        </DockPanel>
+    </Grid>
+</Window>
