@@ -5,7 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PLFPrep"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Loaded="Mainwindow_Loaded"
+        Title="MainWindow" Height="450" Width="800" >
     <!-- Menubar fia CSV loadn und writen und Playlist erstöhn -->
     <Grid>
         <Grid.RowDefinitions>

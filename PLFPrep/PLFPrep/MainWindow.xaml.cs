@@ -1,25 +1,34 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using ChinookDbLib;
+using System;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace PLFPrep
 {
     public partial class MainWindow : Window
     {
-        public MainWindow()
+        private readonly ChinookContext _db;
+        private readonly IServiceProvider serviceProvider;
+
+        public MainWindow(ChinookContext db, IServiceProvider serviceProvider)
         {
             InitializeComponent();
+            this._db = db;
+            this.serviceProvider = serviceProvider;
+        }
+
+        private void Mainwindow_Loaded(object sender, RoutedEventArgs e)
+        {
+
+            int nr = _db.Employees.Count();
+             Title = $"{nr} employees";
+
+            try
+            {
+            } catch (Exception ex)
+            {
+                Title = ex.Message;
+            }
         }
     }
 }
