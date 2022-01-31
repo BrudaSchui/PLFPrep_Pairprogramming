@@ -10,19 +10,20 @@ namespace PLFPrep
     public partial class App : Application
     {
         private readonly IHost _host;
-
         public App()
         {
             _host = Host.CreateDefaultBuilder()
-                .ConfigureServices((ctx, services) => ConfigureServices(ctx.Configuration, services))
-                .Build();
+              .ConfigureServices((ctx, services) => ConfigureServices(ctx.Configuration, services))
+              .Build();
         }
 
-        private void ConfigureServices(IConfiguration configuration, IServiceCollection services)
+
+        internal void ConfigureServices(IConfiguration config, IServiceCollection services)
         {
-            string connectionString = configuration.GetConnectionString("ChinookDb");
+            string connectionString = config.GetConnectionString("ChinookDb");
             services.AddDbContext<ChinookContext>(x => x.UseSqlite(connectionString));
             services.AddSingleton<MainWindow>();
+            services.AddSingleton<ChinookViewModel>();
         }
 
         protected override async void OnStartup(StartupEventArgs e)
@@ -41,5 +42,7 @@ namespace PLFPrep
             }
             base.OnExit(e);
         }
+
+
     }
 }

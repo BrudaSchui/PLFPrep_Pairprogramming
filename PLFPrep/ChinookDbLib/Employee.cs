@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace ChinookDbLib
+﻿namespace ChinookDbLib
 {
     public partial class Employee
     {
@@ -10,7 +7,7 @@ namespace ChinookDbLib
             Customers = new HashSet<Customer>();
             InverseReportsToNavigation = new HashSet<Employee>();
         }
-        
+
         public long EmployeeId { get; set; }
         public string LastName { get; set; } = null!;
         public string FirstName { get; set; } = null!;

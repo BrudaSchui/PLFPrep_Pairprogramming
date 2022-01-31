@@ -4,8 +4,8 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PLFPrep"
+        d:DataContext="{d:DesignInstance local:ChinookViewModel}"
         mc:Ignorable="d"
-        Loaded="Mainwindow_Loaded"
         Title="MainWindow" Height="450" Width="800" >
     <!-- Menubar fia CSV loadn und writen und Playlist erstöhn -->
     <Grid>
@@ -20,15 +20,11 @@
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
 
-        <TextBox Text="Search for Album" Grid.Row="0" Grid.Column="0"/>
-        <ListBox Grid.Row="1" Grid.Column="0">
-            <ListBoxItem Content="Album 1"/>
-        </ListBox>
+        <TextBox Grid.Row="0" Grid.Column="0" Text="{Binding AlbumSearchString, UpdateSourceTrigger=PropertyChanged}"/>
+        <ListBox Grid.Row="1" Grid.Column="0" ItemsSource="{Binding Albums}" SelectedItem="{Binding SelectedAlbum}"/>
 
-        <TextBox Grid.Row="0" Grid.Column="1" Text="Search for Song in Album"/>
-        <ListBox Grid.Row="1" Grid.Column="1">
-            <ListBoxItem Content="Album 1/Song 1"/>
-        </ListBox>
+        <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding TrackSearchString, UpdateSourceTrigger=PropertyChanged}"/>
+        <ListBox Grid.Row="1" Grid.Column="1" ItemsSource="{Binding Tracks}"/>
 
         <Button Content="Add selected Song to selected Playlist" Grid.Row="2" Grid.Column="1"/>
 

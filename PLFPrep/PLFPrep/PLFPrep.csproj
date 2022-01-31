@@ -13,6 +13,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\ChinookDbLib\ChinookDbLib.csproj" />
+    <ProjectReference Include="..\MvvmTools\MvvmTools.csproj" />
   </ItemGroup>
 
   <ItemGroup>
