@@ -18,14 +18,16 @@ namespace PLFPrep
             InitializeComponent();
             _db = db;
             _serviceProvider = serviceProvider;
-            DataContext = viewModel;
-            
-            //List<Playlist> playlists = _db.Playlists.Include(p => p.Tracks).ToList();
+            DataContext = viewModel;   
         }
 
         private void MainWindow_Loaded(object sender, RoutedEventArgs e)
         {
-            List<TreeViewItem> playlistItems = _db.Playlists.Include(p => p.Tracks).Select(p => new TreeViewItem { Header = p.Name }).ToList();
+            List<TreeViewItem> playlistItems = _db.Playlists
+                .Include(p => p.Tracks)
+                .Select(p => new TreeViewItem { Header = p.Name, ItemsSource = p.Tracks.Select(t => t.ToString()).OrderBy(t => t).ToList() })
+                .OrderBy(i => i.Header)
+                .ToList();
             
             treePlaylists.ItemsSource = playlistItems;
         }
