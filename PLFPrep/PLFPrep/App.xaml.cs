@@ -17,7 +17,6 @@ namespace PLFPrep
               .Build();
         }
 
-
         internal void ConfigureServices(IConfiguration config, IServiceCollection services)
         {
             string connectionString = config.GetConnectionString("ChinookDb");

@@ -8,30 +8,46 @@
         mc:Ignorable="d"
         x:Class="PLFPrep.MainWindow"
         Loaded="MainWindow_Loaded"
-        Title="MainWindow" Height="450" Width="800" >
+        Title="MainWindow" Height="450" Width="800">
     <!-- Menubar fia CSV loadn und writen und Playlist erstöhn/deleten -->
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="Auto"/>
-        </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="*"/>
-        </Grid.ColumnDefinitions>
+    <DockPanel>
+        <Menu DockPanel.Dock="Top">
+            <MenuItem Header="Playlists">
+                <MenuItem Header="Delete" Command="{Binding DeletePlaylistCommand}"/>
+                <MenuItem Header="Import from CSV" Command="{Binding ImportPlaylistsCommand}"/>
+                <MenuItem Header="Export to CSV" Command="{Binding ExportPlaylistsCommand}"/>
+            </MenuItem>
+        </Menu>
+        <Grid DockPanel.Dock="Bottom">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
 
-        <TextBox Grid.Row="0" Grid.Column="0" Text="{Binding AlbumSearchString, UpdateSourceTrigger=PropertyChanged}"/>
-        <ListBox Grid.Row="1" Grid.Column="0" ItemsSource="{Binding Albums}" SelectedItem="{Binding SelectedAlbum}"/>
+            <TextBox Grid.Row="0" Grid.Column="0" Text="{Binding AlbumSearchString, UpdateSourceTrigger=PropertyChanged}"/>
+            <ListBox Grid.Row="1" Grid.Column="0" ItemsSource="{Binding Albums}" SelectedItem="{Binding SelectedAlbum}"/>
 
-        <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding TrackSearchString, UpdateSourceTrigger=PropertyChanged}"/>
-        <ListBox Grid.Row="1" Grid.Column="1" ItemsSource="{Binding Tracks}"/>
+            <TextBox Grid.Row="0" Grid.Column="1"
+                     Text="{Binding TrackSearchString, UpdateSourceTrigger=PropertyChanged}"/>
+            <ListBox Name="albumTrackList" Grid.Row="1" Grid.Column="1"
+                     ItemsSource="{Binding Tracks}" SelectedItem="{Binding SelectedTrack}"/>
 
-        <Button Content="Add selected Song to selected Playlist" Grid.Row="2" Grid.Column="1"/>
+            <Button Click="AddSongToPlaylist" Content="Add selected Song to selected Playlist" Grid.Row="2" Grid.Column="1"/>
 
-        <TextBox Grid.Row="0" Grid.Column="2" Text="Search for Playlist"/>
-        <TreeView Grid.Row="1" Grid.Column="2" Name="treePlaylists"/>
-        <Button Grid.Row="2" Grid.Column="2" Content="Remove Song from Playlist"/>
-    </Grid>
+            <DockPanel Grid.Row="0" Grid.Column="2" LastChildFill="True">
+                <Button DockPanel.Dock="Right" Content="Refresh" Click="RefreshPlaylists"/>
+                <Button DockPanel.Dock="Right" Content="Create Playlist"
+                        Command="{Binding CreatePlaylistCommand}"/>
+                <TextBox Text="{Binding NewPlaylistName, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+            </DockPanel>
+            <TreeView Grid.Row="1" Grid.Column="2" Name="treePlaylists" SelectedItemChanged="PlaylistTreeSelectionChanged"/>
+            <Button Grid.Row="2" Grid.Column="2" Content="Remove Song from Playlist"/>
+        </Grid>
+    </DockPanel>
 </Window>
