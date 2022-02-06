@@ -1,13 +1,15 @@
-﻿<Window x:Class="PLFPrep.MainWindow"
+﻿<Window
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PLFPrep"
-        d:DataContext="{d:DesignInstance local:ChinookViewModel}"
+        d:DataContext="{d:DesignInstance Type=local:ChinookViewModel}"
         mc:Ignorable="d"
+        x:Class="PLFPrep.MainWindow"
+        Loaded="MainWindow_Loaded"
         Title="MainWindow" Height="450" Width="800" >
-    <!-- Menubar fia CSV loadn und writen und Playlist erstöhn -->
+    <!-- Menubar fia CSV loadn und writen und Playlist erstöhn/deleten -->
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -29,22 +31,7 @@
         <Button Content="Add selected Song to selected Playlist" Grid.Row="2" Grid.Column="1"/>
 
         <TextBox Grid.Row="0" Grid.Column="2" Text="Search for Playlist"/>
-        <TreeView Grid.Row="1" Grid.Column="2">
-            <TreeViewItem Header="Playlist 1" IsExpanded="True">
-                <TreeViewItem Header="Song 1.1"/>
-                <TreeViewItem Header="Song 1.2"/>
-                <TreeViewItem Header="Song 1.3"/>
-            </TreeViewItem>
-            
-            <TreeViewItem Header="Playlist 2" IsExpanded="False">
-                <TreeViewItem Header="Song 2.1"/>
-                <TreeViewItem Header="Song 2.2"/>
-                <TreeViewItem Header="Song 2.3"/>
-            </TreeViewItem>
-        </TreeView>
-        <DockPanel Grid.Row="2" Grid.Column="2">
-            <Button Content="Remove Song from Playlist" DockPanel.Dock="Top"/>
-            <Button Content="Remove Playlist"/>
-        </DockPanel>
+        <TreeView Grid.Row="1" Grid.Column="2" Name="treePlaylists"/>
+        <Button Grid.Row="2" Grid.Column="2" Content="Remove Song from Playlist"/>
     </Grid>
 </Window>

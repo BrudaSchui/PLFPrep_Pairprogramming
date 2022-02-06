@@ -7,7 +7,7 @@ namespace ChinookDbLib
 
     public partial class Album
     {
-        public override string ToString() => $"{Title}";
+        public override string ToString() => $"{Title} - {Artist}";
     }
 
     public partial class Track

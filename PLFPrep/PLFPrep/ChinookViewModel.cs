@@ -1,15 +1,17 @@
 using ChinookDbLib;
 using Microsoft.EntityFrameworkCore;
 using MvvmTools;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Windows.Controls;
 
 namespace PLFPrep
 {
     public class ChinookViewModel : ObservableObject
     {
         private ChinookContext _db;
-        private ObservableCollection<Album> albumsDefault;
+        private readonly ObservableCollection<Album> albumsDefault;
 
         public ChinookViewModel(ChinookContext db)
         {
@@ -50,6 +52,7 @@ namespace PLFPrep
             set
             {
                 _selectedAlbum = value;
+                TrackSearchString = "";
                 if (value != null) Tracks = value.Tracks.OrderBy(t => t.Name).AsObservableCollection();
                 NotifyPropertyChanged(nameof(SelectedAlbum));
             }
@@ -63,8 +66,10 @@ namespace PLFPrep
             set
             {
                 _albumSearchString = value;
+
                 if (value.Length == 0) Albums = albumsDefault;
-                else Albums = Albums.Where(a => a.Title.StartsWith(value)).AsObservableCollection();
+                else Albums = _db.Albums.Where(a => a.Title.Contains(value)).AsObservableCollection();
+                
                 NotifyPropertyChanged(nameof(AlbumSearchString));
             }
         }
@@ -77,10 +82,16 @@ namespace PLFPrep
             set
             {
                 _trackSearchString = value;
-                if (value.Length == 0) Tracks = _selectedAlbum.Tracks.OrderBy(t => t.Name).AsObservableCollection();
-                else Tracks = Tracks.Where(t => t.Name.StartsWith(value)).AsObservableCollection();
+
+                if (SelectedAlbum == null) return;
+
+                if (value.Length > 0) Tracks = SelectedAlbum.Tracks.Where(t => t.Name.Contains(value)).AsObservableCollection();
+                else if (value.Length == 0) Tracks = SelectedAlbum.Tracks.AsObservableCollection();
+                
                 NotifyPropertyChanged(nameof(TrackSearchString));
             }
         }
+
+
     }
 }
