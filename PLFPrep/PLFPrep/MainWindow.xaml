@@ -47,7 +47,7 @@
                 <TextBox Text="{Binding NewPlaylistName, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
             </DockPanel>
             <TreeView Grid.Row="1" Grid.Column="2" Name="treePlaylists" SelectedItemChanged="PlaylistTreeSelectionChanged"/>
-            <Button Grid.Row="2" Grid.Column="2" Content="Remove Song from Playlist"/>
+            <Button Grid.Row="2" Grid.Column="2" Content="Remove Song from Playlist" Command="{Binding RemoveTrackFromPlaylistCommand}"/>
         </Grid>
     </DockPanel>
 </Window>

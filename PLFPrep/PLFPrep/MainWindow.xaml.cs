@@ -20,10 +20,7 @@ namespace PLFPrep
             _viewModel = viewModel;
         }
 
-        private void MainWindow_Loaded(object sender, RoutedEventArgs e)
-        {
-            RefreshPlaylistTree();
-        }
+        private void MainWindow_Loaded(object sender, RoutedEventArgs e) => RefreshPlaylistTree();
 
         private void AddSongToPlaylist(object sender, RoutedEventArgs e)
         {
@@ -39,13 +36,16 @@ namespace PLFPrep
 
         public void RefreshPlaylistTree()
         {
-            List<TreeViewItem> playlistItems = _db.Playlists
-                .Include(p => p.Tracks)
-                .Select(p => new TreeViewItem { Header = p.Name, ItemsSource = p.Tracks.Select(t => t.Name).OrderBy(t => t).ToList() })
-                .OrderBy(i => i.Header)
-                .ToList();
+            List<Playlist> playlists = _db.Playlists.Include(p => p.Tracks).ToList();
+            List<TreeViewItem> items = new();
+            playlists.ForEach(list =>
+            {
+                TreeViewItem listItem = new() { Header = list.Name, Tag = list.PlaylistId };
+                list.Tracks.ToList().ForEach(track => listItem.Items.Add(new TreeViewItem { Header = track.Name }));
+                items.Add(listItem);
+            });
 
-            treePlaylists.ItemsSource = playlistItems;
+            treePlaylists.ItemsSource = items.OrderBy(tvItem => tvItem.Header).ToList();
         }
 
         private void RefreshPlaylists(object sender, RoutedEventArgs e) => RefreshPlaylistTree();
@@ -53,9 +53,18 @@ namespace PLFPrep
         private void PlaylistTreeSelectionChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
         {
             TreeViewItem? item = e.NewValue as TreeViewItem;
-            _viewModel.SelectedPlaylist = item == null ? null : _db.Playlists
-                .Include(p => p.Tracks)
-                .First(p => p.Name == (string)item.Header);
+            if (item == null) return;
+            if (item.Parent == null)
+            {
+                _viewModel.SelectedPlaylist = GetPlaylistForItem(item);
+            }
+            else
+            {
+                _viewModel.SelectedPlaylist = GetPlaylistForItem((TreeViewItem)item.Parent);
+                _viewModel.SelectedPlaylistTrack = _db.Tracks.First(t => t.Name == (string)item.Header);
+            }
         }
+
+        private Playlist GetPlaylistForItem(TreeViewItem item) => _db.Playlists.First(p => p.PlaylistId == long.Parse(item.Tag.ToString()!));
     }
 }

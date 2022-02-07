@@ -124,7 +124,19 @@ namespace PLFPrep
             _db.SaveChanges();
         }
 
+        public ICommand AddTrackToPlaylistCommand => new RelayCommand<string>(
+            _ => { SelectedPlaylist!.Tracks.Add(SelectedTrack); _db.SaveChanges(); },
+            _ => SelectedPlaylistTrack != null && SelectedPlaylist != null
+        );
+
+        public ICommand RemoveTrackFromPlaylistCommand => new RelayCommand<string>(
+            _ => { SelectedPlaylist!.Tracks.Remove(SelectedPlaylistTrack!); _db.SaveChanges(); },
+            _ => SelectedPlaylist != null && SelectedPlaylistTrack != null
+        );
+
         public Playlist? SelectedPlaylist { get; set; } = null; // Set via Mainwindow, not a MVVM property
+
+        public Track? SelectedPlaylistTrack { get; set; } = null; // Set via Mainwindow, not a MVVM property
 
         public ICommand ExportPlaylistsCommand => new RelayCommand<string>(DoExportPlaylists, _ => true);
 
@@ -167,13 +179,13 @@ namespace PLFPrep
                     Playlist list = new() { PlaylistId = new Random().Next(), Name = name };
 
                     List<string> trackIdStrings = parts.ToList();
-                    trackIdStrings.RemoveAt(0);
-                    
+
                     int outId;
                     List<int> trackIds = trackIdStrings
+                        .Skip(1)
                         .Select(id => int.TryParse(id, out outId) ? outId : -1)
                         .ToList();
-                    
+
                     List<Track> tracks = new();
                     foreach (int tId in trackIds)
                     {
@@ -184,9 +196,10 @@ namespace PLFPrep
                     list.Tracks = tracks;
                     listBuffer.Add(list);
                 }
-                _db.Database.ExecuteSqlRaw("DELETE FROM PlaylistTrack WHERE 1=1");
-                _db.Database.ExecuteSqlRaw("DELETE FROM Playlist WHERE 1=1");
-                listBuffer.ForEach(l => _db.Playlists.Add(l));
+                _db.Database.ExecuteSqlRaw("DELETE FROM PlaylistTrack");
+                _db.Database.ExecuteSqlRaw("DELETE FROM Playlist");
+                _db.SaveChanges();
+                _db.Playlists.AddRange(listBuffer);
                 _db.SaveChanges();
             }
         }

@@ -9,6 +9,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ChinookDbLib", "ChinookDbLi
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MvvmTools", "MvvmTools\MvvmTools.csproj", "{A115EF10-C1BB-4CC1-B092-3DEBBCD518C8}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UserControlLib", "UserControlLib\UserControlLib.csproj", "{CFD596FC-33A8-4464-9ADE-2E552420925E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{A115EF10-C1BB-4CC1-B092-3DEBBCD518C8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A115EF10-C1BB-4CC1-B092-3DEBBCD518C8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A115EF10-C1BB-4CC1-B092-3DEBBCD518C8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CFD596FC-33A8-4464-9ADE-2E552420925E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CFD596FC-33A8-4464-9ADE-2E552420925E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CFD596FC-33A8-4464-9ADE-2E552420925E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CFD596FC-33A8-4464-9ADE-2E552420925E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
