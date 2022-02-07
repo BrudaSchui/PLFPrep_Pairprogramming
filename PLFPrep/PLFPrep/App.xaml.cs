@@ -22,6 +22,7 @@ namespace PLFPrep
             string connectionString = config.GetConnectionString("ChinookDb");
             services.AddDbContext<ChinookContext>(x => x.UseSqlite(connectionString));
             services.AddSingleton<MainWindow>();
+            services.AddTransient<SongDetailWindow>();
             services.AddSingleton<ChinookViewModel>();
         }
 
@@ -41,7 +42,5 @@ namespace PLFPrep
             }
             base.OnExit(e);
         }
-
-
     }
 }

@@ -1,5 +1,6 @@
 using ChinookDbLib;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Win32;
 using MvvmTools;
 using System;
@@ -7,6 +8,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
+using System.Windows;
 using System.Windows.Input;
 
 namespace PLFPrep
@@ -15,12 +17,14 @@ namespace PLFPrep
     {
         private readonly ChinookContext _db;
         private readonly ObservableCollection<Album> albumsDefault;
+        private readonly IServiceProvider _serviceProvider;
 
-        public ChinookViewModel(ChinookContext db)
+        public ChinookViewModel(ChinookContext db, IServiceProvider serviceProvider)
         {
             _db = db;
             albumsDefault = db.Albums.Include(a => a.Tracks).Include(a => a.Artist).OrderBy(a => a.Title).AsObservableCollection();
             Albums = albumsDefault;
+            _serviceProvider = serviceProvider;
         }
 
         private ObservableCollection<Album> _albums;
@@ -202,6 +206,12 @@ namespace PLFPrep
                 _db.Playlists.AddRange(listBuffer);
                 _db.SaveChanges();
             }
+        }
+
+        public void OpenSongDetailWindow()
+        {
+            Window? details = _serviceProvider.GetService<SongDetailWindow>();
+            details?.Show();
         }
     }
 }

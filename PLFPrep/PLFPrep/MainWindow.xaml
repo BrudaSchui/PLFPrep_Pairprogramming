@@ -4,12 +4,12 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PLFPrep"
+        xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
         d:DataContext="{d:DesignInstance Type=local:ChinookViewModel}"
         mc:Ignorable="d"
         x:Class="PLFPrep.MainWindow"
         Loaded="MainWindow_Loaded"
         Title="MainWindow" Height="450" Width="800">
-    <!-- Menubar fia CSV loadn und writen und Playlist erstöhn/deleten -->
     <DockPanel>
         <Menu DockPanel.Dock="Top">
             <MenuItem Header="Playlists">
@@ -30,13 +30,21 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
 
-            <TextBox Grid.Row="0" Grid.Column="0" Text="{Binding AlbumSearchString, UpdateSourceTrigger=PropertyChanged}"/>
-            <ListBox Grid.Row="1" Grid.Column="0" ItemsSource="{Binding Albums}" SelectedItem="{Binding SelectedAlbum}"/>
+            <TextBox Grid.Row="0" Grid.Column="0"
+                     Text="{Binding AlbumSearchString, UpdateSourceTrigger=PropertyChanged}"/>
+            <ListBox Grid.Row="1" Grid.Column="0" ItemsSource="{Binding Albums}"
+                     SelectedItem="{Binding SelectedAlbum}"/>
 
             <TextBox Grid.Row="0" Grid.Column="1"
                      Text="{Binding TrackSearchString, UpdateSourceTrigger=PropertyChanged}"/>
             <ListBox Name="albumTrackList" Grid.Row="1" Grid.Column="1"
-                     ItemsSource="{Binding Tracks}" SelectedItem="{Binding SelectedTrack}"/>
+                     ItemsSource="{Binding Tracks}" SelectedItem="{Binding SelectedTrack}">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="MouseDoubleClick">
+                        <i:CallMethodAction TargetObject="{Binding}" MethodName="OpenSongDetailWindow"/>
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+            </ListBox>
 
             <Button Click="AddSongToPlaylist" Content="Add selected Song to selected Playlist" Grid.Row="2" Grid.Column="1"/>
 
@@ -47,7 +55,8 @@
                 <TextBox Text="{Binding NewPlaylistName, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
             </DockPanel>
             <TreeView Grid.Row="1" Grid.Column="2" Name="treePlaylists" SelectedItemChanged="PlaylistTreeSelectionChanged"/>
-            <Button Grid.Row="2" Grid.Column="2" Content="Remove Song from Playlist" Command="{Binding RemoveTrackFromPlaylistCommand}"/>
+            <Button Grid.Row="2" Grid.Column="2" Content="Remove Song from Playlist"
+                    Command="{Binding RemoveTrackFromPlaylistCommand}"/>
         </Grid>
     </DockPanel>
 </Window>
